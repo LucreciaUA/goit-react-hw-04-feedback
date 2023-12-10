@@ -1,0 +1,53 @@
+.opinion{
+    height: 50px;
+    border: none;
+    background-color: transparent;
+    display: block;
+    font-size: 40px;
+}
+
+.opinion:hover,
+.opinion:focus{
+    transform: scale(1.5);
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 1),
+            0px 0px 10px rgba(255, 255, 255, 1),
+            0px 0px 15px rgba(255, 255, 255, 1),
+            0px 0px 20px rgba(249, 255, 83, 1),
+            0px 0px 30px rgba(249, 255, 83, 1),
+            0px 0px 40px rgba(249, 255, 83, 1),
+            0px 0px 55px rgba(249, 255, 83, 1),
+            0px 0px 75px rgba(249, 255, 83, 1);;
+}
+
+.wrap{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.emoji{
+    font-size: 40px;
+}
+
+body{
+    background-image: url(../img/AdobeStock_496697760_Preview.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+
+.feedback{
+    backdrop-filter: blur(2px);
+    padding: 20px;
+    
+}
+
+.list{
+    list-style: none;
+    
+}
+
+h1{
+    text-shadow: 4px 5px 9px rgba(185, 190, 255, 1);
+}
