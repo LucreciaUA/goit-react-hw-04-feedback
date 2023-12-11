@@ -1,50 +1,50 @@
 import React from "react";
 import { Component } from "react";
 import css from './feedback.module.css'
+import { Statistics } from "./statistic/statistic";
+import { Opinion } from "./opinion/opinion";
 
 
 class Feedback extends Component{
     state = {
         good: 0,
         neutral: 0,
-        bad: 0
+        bad: 0,
+        total: 0,
+        positivePercentage: 0,
     }
 
     leaveOpinion = (type) => {
     this.setState((prevState) => ({
       [type]: prevState[type] + 1
-    }));
+    }), () => {
+      this.countTotalFeedback();
+      
+    });
+    }
+
+    countTotalFeedback = () => {
+    const { good, neutral, bad } = this.state;
+    const total = good + neutral + bad;
+    this.setState({ total }, this.countPositiveFeedbackPercentage);
+  };
+    
+
+    countPositiveFeedbackPercentage = () => {
+        const { good, total } = this.state;
+        const percentage = total > 0 ? (good / total) * 100 : 0;
+        const positivePercentage = percentage.toFixed(0);
+        this.setState({ positivePercentage });
     }
 
     render() {
       return (<div className={css.feedback}>
             <h1>Leave your feedback</h1>
-            <div className={css.wrap}>
-                <button className={css.opinion} type="button" onClick={()=>this.leaveOpinion('good')}>
-                 <span className={css.emoji} role="img" aria-label="smiling face">&#x1F604;</span>
-              </button>
-              
-            <button className={css.opinion} type="button" onClick={()=>this.leaveOpinion('neutral')}>
-             <span lassName={css.emoji} role="img" aria-label="neutral face">&#x1F610;</span>
-              </button>
-              
-            <button className={css.opinion} type="button" onClick={()=>this.leaveOpinion('bad')}>
-             <span lassName={css.emoji} role="img" aria-label="sad face">&#x1F614;</span>
-              </button>
-              
+            <Opinion leaveOpinion={this.leaveOpinion} />
+                <Statistics feedback={this.state} />
             </div>
-            {this.state.good+this.state.neutral+this.state.bad>0 && <div className="stats">
-                <h2>Statistics</h2>
-                <div className="container">
-                    <ul className="stats">
-                        <li className={css.list}>good: <span>{this.state.good}</span></li>
-                        <li className={css.list}>neutral: <span>{this.state.neutral}</span></li>
-                        <li className={css.list}>bad: <span>{this.state.bad}</span></li>
-                    </ul>
-                    <h4>All: <span>{this.state.good+this.state.neutral+this.state.bad}</span></h4>
-                </div>
-            </div>}
-        </div>)
+            
+        )
     }
 
 }
