@@ -11,8 +11,6 @@ class Feedback extends Component{
         good: 0,
         neutral: 0,
         bad: 0,
-        total: 0,
-        positivePercentage: 0,
     }
 
     leaveOpinion = (type) => {
@@ -26,19 +24,22 @@ class Feedback extends Component{
 
     countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
-    const total = good + neutral + bad;
-    this.setState({ total }, this.countPositiveFeedbackPercentage);
+      const total = good + neutral + bad;
+      console.log(total)
+    return total
   };
     
 
-    countPositiveFeedbackPercentage = () => {
-        const { good, total } = this.state;
+    countPositiveFeedbackPercentage = (total) => {
+        const { good} = this.state;
         const percentage = total > 0 ? (good / total) * 100 : 0;
         const positivePercentage = percentage.toFixed(0);
-        this.setState({ positivePercentage });
+        return positivePercentage
     }
 
-    render() {
+  render() {
+      const total = this.countTotalFeedback(); 
+    const percentage = this.countPositiveFeedbackPercentage(total);
       return (<div className={css.feedback}>
         <h1>Leave your feedback</h1>
         <Section title={'Please leave your feedback'} />
@@ -46,7 +47,9 @@ class Feedback extends Component{
           opinions={this.state}
           leaveOpinion={this.leaveOpinion} />
         <Section title={'Statistics'}/>
-        <Statistics feedback={this.state} />
+        <Statistics feedback={this.state}
+          total={total}
+          percentage={percentage} />
             </div>
             
         )

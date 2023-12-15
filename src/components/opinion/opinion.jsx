@@ -4,7 +4,7 @@ import css from './opinion.module.css'
 export const Opinion = ({opinions, leaveOpinion }) => {
     return (
         <div className={css.wrap}>
-            <button className={css.opinion} type="button" onClick={() => leaveOpinion('good')}>
+           {/*<button className={css.opinion} type="button" id={opinions[0]} onClick={() => leaveOpinion('good')}>
                 <span className={css.emoji} role="img" aria-label="smiling face">&#x1F604;</span>
             </button>
             <button className={css.opinion} type="button" onClick={() => leaveOpinion('neutral')}>
@@ -12,7 +12,22 @@ export const Opinion = ({opinions, leaveOpinion }) => {
             </button>
             <button className={css.opinion} type="button" onClick={() => leaveOpinion('bad')}>
                 <span className={css.emoji} role="img" aria-label="sad face">&#x1F614;</span>
-            </button>
+            </button>}*/}
+            {Object.keys(opinions).map((key) => (
+                <button
+                    key={key}
+                    className={css.opinion}
+                    type="button"
+                    onClick={() => leaveOpinion(key)}
+                >
+                    <span className={css.emoji} role="img" aria-label={`${key} face`}>
+                        
+                    </span>
+                    {key === 'good' && '😊'}
+                    {key === 'neutral' && '😐'}
+                    {key === 'bad' && '😔'}
+                </button>
+            ))}
         </div>
     );
 }
