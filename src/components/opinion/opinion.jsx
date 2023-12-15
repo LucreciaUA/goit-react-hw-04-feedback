@@ -1,7 +1,7 @@
 import React from "react";
 import css from './opinion.module.css'
 
-export const Opinion = ({ leaveOpinion }) => {
+export const Opinion = ({opinions, leaveOpinion }) => {
     return (
         <div className={css.wrap}>
             <button className={css.opinion} type="button" onClick={() => leaveOpinion('good')}>

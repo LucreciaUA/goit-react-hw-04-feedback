@@ -3,6 +3,7 @@ import { Component } from "react";
 import css from './feedback.module.css'
 import { Statistics } from "./statistic/statistic";
 import { Opinion } from "./opinion/opinion";
+import { Section } from "./section/section";
 
 
 class Feedback extends Component{
@@ -39,9 +40,13 @@ class Feedback extends Component{
 
     render() {
       return (<div className={css.feedback}>
-            <h1>Leave your feedback</h1>
-            <Opinion leaveOpinion={this.leaveOpinion} />
-                <Statistics feedback={this.state} />
+        <h1>Leave your feedback</h1>
+        <Section title={'Please leave your feedback'} />
+        <Opinion
+          opinions={this.state}
+          leaveOpinion={this.leaveOpinion} />
+        <Section title={'Statistics'}/>
+        <Statistics feedback={this.state} />
             </div>
             
         )
