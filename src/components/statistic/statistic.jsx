@@ -1,8 +1,8 @@
 import React from "react";
 import css from './statistics.module.css'
 
-export const Statistics = ({ feedback, total, percentage }) => {
-    const { good, neutral, bad} = feedback;
+export const Statistics = ({ good, neutral, bad, total, percentage }) => {
+
 
     return (
         <>

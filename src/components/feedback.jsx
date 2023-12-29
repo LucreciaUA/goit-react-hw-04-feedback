@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Component } from "react";
 import css from './feedback.module.css'
 import { Statistics } from "./statistic/statistic";
@@ -6,48 +6,48 @@ import { Opinion } from "./opinion/opinion";
 import { Section } from "./section/section";
 
 
-class Feedback extends Component{
-    state = {
-        good: 0,
-        neutral: 0,
-        bad: 0,
+const Feedback =() => {
+
+
+  const[good, setGood] = useState(0);
+  const[neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0)
+
+   const leaveOpinion = (type) => {
+    if (type === 'good') {
+      setGood(good + 1);
+    } else if (type === 'neutral') {
+      setNeutral(neutral + 1);
+    } else if (type === 'bad') {
+      setBad(bad + 1);
+    }
     }
 
-    leaveOpinion = (type) => {
-    this.setState((prevState) => ({
-      [type]: prevState[type] + 1
-    }), () => {
-      this.countTotalFeedback();
-      
-    });
-    }
-
-    countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-      const total = good + neutral + bad;
-      console.log(total)
-    return total
+    const countTotalFeedback = () => {
+    return good + neutral + bad;
   };
-    
 
-    countPositiveFeedbackPercentage = (total) => {
-        const { good} = this.state;
-        const percentage = total > 0 ? (good / total) * 100 : 0;
-        const positivePercentage = percentage.toFixed(0);
-        return positivePercentage
-    }
+  const countPositiveFeedbackPercentage = () => {
+    const total = countTotalFeedback();
+    return total > 0 ? ((good / total) * 100).toFixed(0) : 0;
+  };
 
-  render() {
-      const total = this.countTotalFeedback(); 
-    const percentage = this.countPositiveFeedbackPercentage(total);
+  const total = countTotalFeedback();
+  const percentage = countPositiveFeedbackPercentage();
+
       return (<div className={css.feedback}>
         <h1>Leave your feedback</h1>
         <Section title={'Please leave your feedback'} />
         <Opinion
-          opinions={this.state}
-          leaveOpinion={this.leaveOpinion} />
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          leaveOpinion={leaveOpinion} />
         <Section title={'Statistics'}/>
-        <Statistics feedback={this.state}
+        <Statistics 
+          good={good}
+          neutral={neutral}
+          bad={bad}
           total={total}
           percentage={percentage} />
             </div>
@@ -55,6 +55,6 @@ class Feedback extends Component{
         )
     }
 
-}
+
 
 export default Feedback;

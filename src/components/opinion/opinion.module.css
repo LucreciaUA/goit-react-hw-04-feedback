@@ -6,8 +6,7 @@
     font-size: 40px;
 }
 
-.opinion:hover,
-.opinion:focus {
+.opinion:hover {
     transform: scale(1.5);
     text-shadow: 0px 0px 5px rgba(255, 255, 255, 1),
         0px 0px 10px rgba(255, 255, 255, 1),
